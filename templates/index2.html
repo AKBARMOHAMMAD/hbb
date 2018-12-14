@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    {% load staticfiles %}
+    <title>Userpage</title>
+     <style>
+        body{
+           background-image: url("{% static 'image/background image.png' %}");
+        }
+    </style>
+</head>
+<body>
+<h1 align="center">AKBAR LODGE</h1>
+<marquee>The only purpose of ‘customer service’… is to change feelings</marquee>
+        <table align="center" border="2">
+            <tr>
+                <th width="150" bgcolor="#9acd32"><a href="/openUserHomePage/?type=home">HOME</a> </th>
+                <th width="150" bgcolor="#9acd32"><a href="/openBookingPage/?type=u_booking">BOOKING</a> </th>
+                <th width="150" bgcolor="#9acd32"><a href="/openCancelPage/?type=u_cancel">CANCEL</a> </th>
+                <th width="150" bgcolor="#9acd32"><a href="/openUserLogin/?type=h_user">LOGOUT</a> </th>
+            </tr>
+        </table>
+            <div>
+              <h1 align="center">HAI WELCOME  {{ name.fname }}{{ name.lname }}</h1>
+                <h1 align="center" >Welcome To Hotel AKBAR</h1>
+            </div>
+        {% if type == "home" %}
+        {% endif %}
+        {% if type == "u_booking" %}
+            <form action="/openPayment/?type=payment" method="post">
+            {% csrf_token %}
+            <table align="center">
+                <tr><th>Booking Rooms:</th></tr>
+                <tr><th>Select Room_type:<select name="room_type">
+                    {% for rec in qs %}
+                        <option value= {{ rec.room_type }}>{{ rec.room_type }}</option>
+                    {% endfor %}
+                </select></th></tr>
+                <!--<tr><th>Available Rooms:<select name="available_rooms">
+                {% for rec in qs %}
+                    <option value={{ rec.available_rooms }}>{{ rec.available_rooms }}</option>
+                {% endfor %}
+                </select></th></tr>-->
+                <tr><th>CHECK-IN:<input type="text" required name="check_in_date"></th></tr>
+                <tr><th>CHECK-OUT:<input type="text"  required name="check_out_date"></th></tr>
+                <tr><th><input type="submit" value="BOOK"></th></tr>
+            </table>
+            </form>
+        {% endif %}
+        {% if type == "payment" %}
+            <form action="/openPreview/?type=Preview" method="post">
+            {% csrf_token %}
+            <table align="center">
+
+                <tr><th>CHECK_IN_DATE:<input type="text"  required name="check_in_date"> </th></tr>
+                <tr><th>CHECK_OUT_DATE:<input type="text"  required name="check_out_date"> </th></tr>
+                <tr><th>USERNAME:<input type="text" required name="username"> </th></tr>
+                <tr><th>ROOM_TYPE:<select name="room_type">
+                    {% for rec in qs %}
+                   <option value= {{ rec.room_type }}>{{ rec.room_type }}</option>
+                    {% endfor %}
+                </select> </th></tr>
+                <tr><th>TOTAL_COST:<input type="number" required name="cost"> </th></tr>
+                <tr><th>CARD_PAYMENT:<select name="card_type">
+                    {% for rec in qs1 %}
+                        <option value={{ rec.card_type }}>{{ rec.card_type }}</option>
+                    {% endfor %}
+                </select></th></tr>
+                <tr><th><input type="submit" value="Display"></th></tr>
+            </table>
+
+            </form>
+        {% endif %}
+       {% if type == "Preview" %}
+            <form action="/openDisplay/?type=display" method="post">
+            {% csrf_token %}
+            <table align="center" border="1">
+
+                <tr><th>Details............</th></tr>
+                <tr><th>Customer ID is given below. This is useful for cancelling the rooms</th></tr>
+                <tr><th>CHECK_IN_DATE</th>
+                    <th>CHECK_OUT_DATE</th>
+                    <th>USERNAME</th>
+                    <th>TOTAL_COST</th>
+                    <th>ROOM_NO</th>
+                    <th>ROOM_TYPE</th>
+                </tr>
+            {% for x in result %}
+                <tr><td>{{ x.CHECK_IN_DATE }}</td></tr>
+                <tr><td>{{ x.CHECK_OUT_DATE }}</td></tr>
+                <tr><td>{{ x.USERNAME }}</td></tr>
+                <tr><td>{{ x.TOTAL_COST }}</td></tr>
+                <tr><td>{{ x.ROOM_NO }}</td></tr>
+                <tr><td>{{ x.ROOM_TYPE }}</td></tr>
+                <tr><td><input type="submit" value="Proceed"> </td></tr>
+
+                 {% endfor %}
+             </table>
+
+            </form>
+        {% endif %}
+        {% if type == "display" %}
+        {% endif %}
+        {% if type == "u_cancel" %}
+            <form action="/CancelPage/" method="post">
+            {% csrf_token %}
+            <table align="center">
+                <tr><th>UserName:<input type="text" placeholder="username" required name="u_name"></th></tr>
+                <tr><th>RoomNumber:<input type="number" placeholder="roomno" required name="u_room"></th></tr>
+                <tr><th>Cust_Id:<input type="number" placeholder="CustId" required name="u_id"></th></tr>
+                <tr><th><input type="submit" value="Cancel"> </th></tr>
+            </table>
+            </form>
+        {% endif %}
+
+
+</body>
+</html>
