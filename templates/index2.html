@@ -37,11 +37,6 @@
                         <option value= {{ rec.room_type }}>{{ rec.room_type }}</option>
                     {% endfor %}
                 </select></th></tr>
-                <!--<tr><th>Available Rooms:<select name="available_rooms">
-                {% for rec in qs %}
-                    <option value={{ rec.available_rooms }}>{{ rec.available_rooms }}</option>
-                {% endfor %}
-                </select></th></tr>-->
                 <tr><th>CHECK-IN:<input type="text" required name="check_in_date"></th></tr>
                 <tr><th>CHECK-OUT:<input type="text"  required name="check_out_date"></th></tr>
                 <tr><th><input type="submit" value="BOOK"></th></tr>
@@ -51,7 +46,7 @@
         {% if type == "payment" %}
             <form action="/openPreview/?type=Preview" method="post">
             {% csrf_token %}
-            <table align="center">
+           <table align="center">
 
                 <tr><th>CHECK_IN_DATE:<input type="text"  required name="check_in_date"> </th></tr>
                 <tr><th>CHECK_OUT_DATE:<input type="text"  required name="check_out_date"> </th></tr>
@@ -69,7 +64,15 @@
                 </select></th></tr>
                 <tr><th><input type="submit" value="Display"></th></tr>
             </table>
-
+           <!-- <table align="center">
+                <tr><th>Check_in:<input type="text" required name="u_check_in"></th></tr>
+                <tr><th>Check_out:<input type="text" required name="u_chckout"></th></tr>
+                <tr><th>UserName:<input type="text" required name="u_name"></th></tr>
+                <tr><th>RoomNo:<input type="text" required name="u_room"></th></tr>
+                <tr><th>RoomType:<input type="text" required name="u_roomtype"></th></tr>
+                <tr><th>TotalCost:<input type="text" required name="u_totalcost"></th></tr>
+                <tr><th><input type="submit" value="Proceed"></th></tr>
+            </table>-->
             </form>
         {% endif %}
        {% if type == "Preview" %}

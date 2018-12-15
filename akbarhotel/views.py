@@ -69,43 +69,26 @@ def openBookingPage(request):
 #==================================================================
 
 def openPayment(request):
-    '''u_checkin=request.POST.get('u_checkin')
-    u_chckout=request.POST.get('u_checkout')
-    u_name=request.POST.get('u_name')
-    u_room=request.POST.get('u_room')
-    u_roomtype=request.POST.get('u_roomtype')
-    u_totalcost=request.POST.get('u_totalcost')
-    print(u_checkin,u_chckout,u_totalcost,u_roomtype,u_room,u_name)
-    up=display(CHECK_IN_DATE=u_checkin,CHECK_OUT_DATE=u_chckout,USERNAME=u_name,ROOM_NO=u_room,ROOM_TYPE=u_roomtype,TOTAL_COST=u_totalcost)
-    up.save()
-    return render(request,'index2.html',{"type":'display',"message":'Booking Room Successfully'})'''
-
     type=request.GET.get("type")
     qs=RoomBooking.objects.filter()
     qs1 = RoomBooking.objects.filter()
 
-    return render(request, 'index2.html', {"type": type, "message":'PAYMENT SUCCESSFULLY',"qs":qs,"qs1":qs1})
+    return render(request, 'index2.html', {"type": type,"qs":qs,"qs1":qs1})
 
 #===================================================================
 def openPreview(request):
-    check_in = request.POST.get("CHECK_IN_DATE")
+    check_in_date = request.POST.get("CHECK_IN_DATE")
     check_out_date = request.POST.get("CHECK_OUT_DATE")
     username = request.POST.get("USERNAME")
     cost = request.POST.get("TOTAL_COST")
     room_no = request.POST.get("ROOM_NO")
     room_type = request.POST.get("ROOM_TYPE")
-    f=display(CHECK_IN_DATE=check_in,CHECK_OUT_DATE=check_out_date,USERNAME=username,TOTAL_COST=cost,ROOM_NO=room_no,ROOM_TYPE=room_type)
+    f=display(CHECK_IN_DATE=check_in_date,CHECK_OUT_DATE=check_out_date,USERNAME=username,TOTAL_COST=cost,ROOM_NO=room_no,ROOM_TYPE=room_type)
     f.save()
     print(f)
 
-
-
-
     return render(request, 'index2.html', {"type": type})
-    '''type = request.GET.get("type")
-    email = request.GET.get("email")
-    result = display.objects.filter(USERNAME=email)
-    return render(request, "index2.html", {"type": type, "result": result})'''
+
 
 
 

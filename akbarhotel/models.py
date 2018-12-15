@@ -1,4 +1,5 @@
 from django.db import models
+from django.db import IntegrityError
 import datetime
 # Create your models here.
 class UserRegister(models.Model):
@@ -17,7 +18,7 @@ class RoomBooking(models.Model):
 class display(models.Model):
     USERNAME = models.CharField(max_length=20, primary_key=True)
     ROOM_NO = models.IntegerField()
-    CUSTOMER_ID = models.IntegerField()
+    CUSTOMER_ID = models.BigAutoField
     CHECK_IN_DATE=  models.DateField()
     CHECK_OUT_DATE=models.DateField()
     ROOM_TYPE=models.ForeignKey(RoomBooking,on_delete=models.CASCADE)
